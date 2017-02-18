@@ -6,3 +6,6 @@ Run every 1 minute:
 ```
 
 sudo is needed for getting aws configuration from the user profile
+
+Idea has been taken from this:
+https://www.raspberrypi.org/documentation/usage/webcams/ 
