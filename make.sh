@@ -1,5 +1,4 @@
 BUCKET=$1
-echo $BUCKET 
 
 DATE=$(date +"%Y-%m-%d_%H_%M")
 BASEDIR=$(dirname "$0")
