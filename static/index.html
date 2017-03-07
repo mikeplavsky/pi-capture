@@ -1,0 +1,72 @@
+<!-- The top of file index.html -->
+<html itemscope itemtype="http://schema.org/Article">
+<head>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
+    </script>
+    <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer>
+    </script>
+
+    <script>
+        function start() {
+            gapi.load('auth2', function() {
+                auth2 = gapi.auth2.init({
+                client_id: "179827864852-ehtrvjcqjgb7ckgsb5d7tmaj7qsb41fd.apps.googleusercontent.com",
+                // Scopes to request in addition to 'profile' and 'email'
+                //scope: 'additional_scope'
+                });
+            });
+        }
+    </script>
+
+</head>
+<body>
+
+<button id="signinButton">Sign in with Google</button>
+
+<script>
+
+    $('#signinButton').click(function() {
+          auth2.grantOfflineAccess().then(
+                  signInCallback);
+    });
+
+</script>
+
+<script>
+function signInCallback(authResult) {
+
+    if (authResult['code']) {
+
+        console.log(authResult['code']);
+
+        $('#signinButton').attr(
+                'style', 'display: none');
+
+        $.ajax({
+            type: 'POST',
+            url: '/auth',
+            // Always include an `X-Requested-With` header in every AJAX request,
+            // to protect against CSRF attacks.
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            contentType: 'application/json; charset=utf-8',
+
+            success: function(res) {
+                console.log(res)
+            },
+
+            processData: false,
+
+            data: JSON.stringify(
+                    {code:authResult['code']})
+        });
+    } else {
+        console.log(authResult)
+    }
+}
+</script>
+
+</body>
+</html>
