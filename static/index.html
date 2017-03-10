@@ -23,11 +23,14 @@
 <body>
 
 <button id="signinButton">Sign in with Google</button>
+<div id="Done" style="display:none">Got it!</div>
 
 <script>
 
     $('#signinButton').click(function() {
-          auth2.grantOfflineAccess().then(
+          auth2.grantOfflineAccess(
+                  {scope:"https://www.googleapis.com/auth/drive"}
+                  ).then(
                   signInCallback);
     });
 
@@ -55,6 +58,8 @@ function signInCallback(authResult) {
 
             success: function(res) {
                 console.log(res)
+                $('#Done').attr(
+                        'style', 'display: inline-block');
             },
 
             processData: false,
