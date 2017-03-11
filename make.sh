@@ -10,6 +10,6 @@ rm $BASEDIR/*.jpg
 FILE=$BASEDIR/$DATE.jpg
 echo $FILE
 
-fswebcam --fps 15 -S 8 -r 640x480  $FILE
+fswebcam --fps 15 -S 8 -r 640x480 $FILE
 aws s3 cp $FILE s3://$BUCKET
 
